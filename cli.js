@@ -16,9 +16,26 @@ var csv2json = require('./');
 
 //====================================================================
 
-var usage = multiline.stripIndent(function () {/*
-  Usage: csv2json [-s <separator>] < file.csv > file.json
-*/});
+var usage = (function (pkg) {
+  return multiline.stripIndent(function () {/*
+    Usage: $name [OPTIONS] [<input file> [<output file>]]
+
+      -s <separator>, --separator=<separator>
+        Field separator to use (default to comma “,”).
+
+      <input file>
+        CSV file to read data from.
+        If unspecified or a dash (“-”), use the standard input.
+
+      <output file>
+        JSON file to write data to.
+        If unspecified or a dash (“-”), use the standard output.
+
+    $name v$version
+  */}).replace(/\$(\w+)/g, function (_, key) {
+    return pkg[key];
+  });
+})(require('./package'));
 
 function main(args) {
   var _ref;
