@@ -1,8 +1,18 @@
 {
-  "private": true,
   "name": "csv2json",
   "version": "0.0.0",
   "license": "ISC",
+  "description": "Stream and CLI to convert CSV to JSON",
+  "keywords": [
+    "csv",
+    "json",
+    "csv2json",
+    "csvtojson",
+    "stream"
+  ],
+  "homepage": "https://github.com/julien-f/csv2json",
+  "bugs": "https://github.com/julien-f/csv2json/issues",
+  "author": "Julien Fontanet <julien.fontanet@isonoe.net>",
   "bin": {
     "csv2json": "cli.js"
   },
@@ -14,5 +24,8 @@
     "minimist": "^1.1.0",
     "multiline": "^1.0.0",
     "stream-combiner": "^0.2.1"
-  }
+  },
+  "files": [
+    "*.js"
+  ]
 }
