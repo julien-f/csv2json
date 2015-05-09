@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-'use strict';
+'use strict'
 
-//====================================================================
+// ===================================================================
 
-var createReadStream = require('fs').createReadStream;
-var createWriteStream = require('fs').createWriteStream;
+var createReadStream = require('fs').createReadStream
+var createWriteStream = require('fs').createWriteStream
 
-var combine = require('stream-combiner');
-var eventToPromise = require('event-to-promise');
-var minimist = require('minimist');
-var multiline = require('multiline');
+var combine = require('stream-combiner')
+var eventToPromise = require('event-to-promise')
+var minimist = require('minimist')
+var multiline = require('multiline')
 
-var csv2json = require('./');
+var csv2json = require('./')
 
-//====================================================================
+// ===================================================================
 
 var usage = (function (pkg) {
   return multiline.stripIndent(function () {/*
@@ -33,12 +33,12 @@ var usage = (function (pkg) {
 
     $name v$version
   */}).replace(/\$(\w+)/g, function (_, key) {
-    return pkg[key];
-  });
-})(require('./package'));
+    return pkg[key]
+  })
+})(require('./package'))
 
-function main(args) {
-  var _ref;
+function main (args) {
+  var _ref
 
   args = minimist(args, {
     boolean: 'help',
@@ -46,36 +46,34 @@ function main(args) {
 
     alias: {
       help: 'h',
-      separator: 's',
-    },
-  });
+      separator: 's'
+    }
+  })
 
   if (args.help) {
-    return usage;
+    return usage
   }
 
   var input = (_ref = args._[0]) && (_ref !== '-') ?
     createReadStream(_ref) :
     process.stdin
-  ;
 
   var output = (_ref = args._[1]) && (_ref !== '-') ?
     createWriteStream(_ref) :
     process.stdout
-  ;
 
   return eventToPromise(combine([
     input,
     csv2json({
-      separator: args.separator,
+      separator: args.separator
     }),
-    output,
-  ]), 'finish');
+    output
+  ]), 'finish')
 }
-exports = module.exports = main;
+exports = module.exports = main
 
-//====================================================================
+// ===================================================================
 
 if (!module.parent) {
-  require('exec-promise')(exports);
+  require('exec-promise')(exports)
 }
