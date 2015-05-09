@@ -17,7 +17,7 @@
     "csv2json": "cli.js"
   },
   "dependencies": {
-    "JSONStream": "^0.9.0",
+    "JSONStream": "^1.0.3",
     "csv-parser": "^1.4.6",
     "event-to-promise": "^0.3.1",
     "exec-promise": "^0.5.0",
