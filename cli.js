@@ -7,10 +7,10 @@
 var createReadStream = require('fs').createReadStream
 var createWriteStream = require('fs').createWriteStream
 
-var combine = require('stream-combiner')
 var eventToPromise = require('event-to-promise')
 var minimist = require('minimist')
 var multiline = require('multiline')
+var pump = require('pump')
 
 var csv2json = require('./')
 
@@ -62,7 +62,7 @@ function main (args) {
     createWriteStream(_ref) :
     process.stdout
 
-  return eventToPromise(combine([
+  return eventToPromise(pump([
     input,
     csv2json({
       separator: args.separator

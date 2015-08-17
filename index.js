@@ -4,16 +4,16 @@
 
 // ===================================================================
 
-var combine = require('stream-combiner')
 var JSONStream = require('JSONStream')
 var parseCsv = require('csv-parser')
+var pumpify = require('pumpify')
 
 // ===================================================================
 
 function csv2json (opts) {
   opts || (opts = {})
 
-  return combine([
+  return pumpify([
     parseCsv({
       separator: opts.separator
     }),
