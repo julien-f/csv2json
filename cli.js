@@ -2,8 +2,6 @@
 
 'use strict'
 
-// ===================================================================
-
 var createReadStream = require('fs').createReadStream
 var createWriteStream = require('fs').createWriteStream
 
@@ -24,7 +22,7 @@ var usage = (function (pkg) {
         Field separator to use (default to comma “,”).
 
       -t, --tsv
-        Use tab as separator, overrides separator flag. 
+        Use tab as separator, overrides separator flag.
 
       <input file>
         CSV file to read data from.
@@ -50,7 +48,7 @@ function main (args) {
     alias: {
       help: 'h',
       separator: 's',
-      tsv: 't',
+      tsv: 't'
     }
   })
 
@@ -58,18 +56,18 @@ function main (args) {
     return usage
   }
 
-  var input = (_ref = args._[0]) && (_ref !== '-') ?
-    createReadStream(_ref) :
-    process.stdin
+  var input = (_ref = args._[0]) && (_ref !== '-')
+    ? createReadStream(_ref)
+    : process.stdin
 
-  var output = (_ref = args._[1]) && (_ref !== '-') ?
-    createWriteStream(_ref) :
-    process.stdout
+  var output = (_ref = args._[1]) && (_ref !== '-')
+    ? createWriteStream(_ref)
+    : process.stdout
 
   return eventToPromise(pump([
     input,
     csv2json({
-      separator: args.tsv ? "\t" : args.separator
+      separator: args.tsv ? '\t' : args.separator
     }),
     output
   ]), 'finish')
