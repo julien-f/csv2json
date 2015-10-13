@@ -23,6 +23,9 @@ var usage = (function (pkg) {
       -s <separator>, --separator=<separator>
         Field separator to use (default to comma “,”).
 
+      -t, --tsv
+        Use tab as separator, overrides separator flag. 
+
       <input file>
         CSV file to read data from.
         If unspecified or a dash (“-”), use the standard input.
@@ -41,12 +44,13 @@ function main (args) {
   var _ref
 
   args = minimist(args, {
-    boolean: 'help',
+    boolean: ['help', 'tsv'],
     string: 'separator',
 
     alias: {
       help: 'h',
-      separator: 's'
+      separator: 's',
+      tsv: 't',
     }
   })
 
@@ -65,7 +69,7 @@ function main (args) {
   return eventToPromise(pump([
     input,
     csv2json({
-      separator: args.separator
+      separator: args.tsv ? "\t" : args.separator
     }),
     output
   ]), 'finish')
