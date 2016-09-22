@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "csv-parser": "^1.4.6",
-    "event-to-promise": "^0.3.1",
-    "exec-promise": "^0.5.0",
+    "event-to-promise": "^0.7.0",
+    "exec-promise": "^0.6.1",
     "minimist": "^1.1.0",
     "multiline": "^1.0.0",
     "ndjson": "^1.4.1",
@@ -28,7 +28,7 @@
     "through2": "^2.0.0"
   },
   "devDependencies": {
-    "standard": "^5.3.1"
+    "standard": "^8.1.0"
   },
   "files": [
     "*.js"
