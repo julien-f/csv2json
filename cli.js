@@ -15,7 +15,7 @@ var csv2json = require('./')
 // ===================================================================
 
 var usage = (function (pkg) {
-  return multiline.stripIndent(function () {/*
+  return multiline.stripIndent(function () { /*
     Usage: $name [OPTIONS] [<input file> [<output file>]]
 
       -s <separator>, --separator=<separator>
@@ -33,7 +33,7 @@ var usage = (function (pkg) {
         If unspecified or a dash (“-”), use the standard output.
 
     $name v$version
-  */}).replace(/\$(\w+)/g, function (_, key) {
+  */ }).replace(/\$(\w+)/g, function (_, key) {
     return pkg[key]
   })
 })(require('./package'))
