@@ -6,6 +6,7 @@ var ndjson = require('ndjson')
 var parseCsv = require('csv-parser')
 var pumpify = require('pumpify')
 var through2 = require('through2')
+var stripBomStream = require('strip-bom-stream')
 
 // ===================================================================
 
@@ -13,6 +14,7 @@ function csv2json (opts) {
   opts || (opts = {})
 
   return pumpify([
+    stripBomStream(),
     parseCsv({
       separator: opts.separator
     }),
