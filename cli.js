@@ -7,36 +7,32 @@ var createWriteStream = require('fs').createWriteStream
 
 var eventToPromise = require('event-to-promise')
 var minimist = require('minimist')
-var multiline = require('multiline')
 var pump = require('pump')
 
 var csv2json = require('./')
+var pkg = require('./package.json')
 
 // ===================================================================
 
-var usage = (function (pkg) {
-  return multiline.stripIndent(function () { /*
-    Usage: $name [OPTIONS] [<input file> [<output file>]]
-
-      -s <separator>, --separator=<separator>
-        Field separator to use (default to comma “,”).
-
-      -t, --tsv
-        Use tab as separator, overrides separator flag.
-
-      <input file>
-        CSV file to read data from.
-        If unspecified or a dash (“-”), use the standard input.
-
-      <output file>
-        JSON file to write data to.
-        If unspecified or a dash (“-”), use the standard output.
-
-    $name v$version
-  */ }).replace(/\$(\w+)/g, function (_, key) {
-    return pkg[key]
-  })
-})(require('./package'))
+var usage = [
+  'Usage: ' + pkg.name + ' [OPTIONS] [<input file> [<output file>]]',
+  '',
+  '  -s <separator>, --separator=<separator>',
+  '    Field separator to use (default to comma “,”).',
+  '',
+  '  -t, --tsv',
+  '    Use tab as separator, overrides separator flag.',
+  '',
+  '  <input file>',
+  '    CSV file to read data from.',
+  '    If unspecified or a dash (“-”), use the standard input.',
+  '',
+  '  <output file>',
+  '    JSON file to write data to.',
+  '    If unspecified or a dash (“-”), use the standard output.',
+  '',
+  pkg.name + ' v' + pkg.version
+]
 
 function main (args) {
   var _ref
