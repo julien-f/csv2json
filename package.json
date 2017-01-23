@@ -12,14 +12,26 @@
   ],
   "homepage": "https://github.com/julien-f/csv2json",
   "bugs": "https://github.com/julien-f/csv2json/issues",
-  "author": "Julien Fontanet <julien.fontanet@isonoe.net>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julien-f/csv2json.git"
+  },
+  "author": {
+    "name": "Julien Fontanet",
+    "email": "julien.fontanet@isonoe.net"
+  },
+  "preferGlobal": false,
   "bin": {
     "csv2json": "cli.js"
   },
+  "files": [
+    "*.js"
+  ],
   "dependencies": {
     "csv-parser": "^1.4.6",
     "event-to-promise": "^0.7.0",
     "exec-promise": "^0.6.1",
+    "husky": "^0.13.0",
     "minimist": "^1.1.0",
     "ndjson": "^1.4.1",
     "pump": "^1.0.0",
@@ -28,13 +40,16 @@
     "through2": "^2.0.0"
   },
   "devDependencies": {
+    "dependency-check": "^2.7.0",
+    "jest": "^18.1.0",
     "standard": "^8.2.0"
   },
-  "files": [
-    "*.js"
-  ],
   "scripts": {
-    "lint": "standard",
-    "test": "npm run lint"
+    "commitmsg": "yarn test",
+    "posttest": "standard && dependency-check ./package.json",
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": "\\.spec\\.js$"
   }
 }

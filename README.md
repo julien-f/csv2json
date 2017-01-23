@@ -1,12 +1,10 @@
-# csv2json
+# csv2json [![Build Status](https://travis-ci.org/julien-f/csv2json.png?branch=master)](https://travis-ci.org/julien-f/csv2json)
 
 > Stream and CLI to convert CSV to JSON.
 
 ## Install
 
-Download [manually](https://github.com/julien-f/csv2json/releases) or with package-manager.
-
-#### [npm](https://npmjs.org/package/csv2json)
+Installation of the [npm package](https://npmjs.org/package/csv2json):
 
 Install globally if you want to use the CLI:
 
