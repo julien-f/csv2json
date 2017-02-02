@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "dependency-check": "^2.7.0",
+    "get-stream": "^3.0.0",
     "jest": "^18.1.0",
     "standard": "^8.2.0"
   },
