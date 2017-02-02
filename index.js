@@ -2,7 +2,6 @@
 
 // ===================================================================
 
-var ndjson = require('ndjson')
 var parseCsv = require('csv-parser')
 var pumpify = require('pumpify')
 var through2 = require('through2')
@@ -18,18 +17,17 @@ function csv2json (opts) {
     parseCsv({
       separator: opts.separator
     }),
-    ndjson.stringify(),
     (function () {
       var notFirst = false
-      var proxy = through2(function (chunk, _, done) {
+      var proxy = through2.obj(function (chunk, _, done) {
         if (notFirst) {
           this.push(',\n')
         }
         notFirst = true
 
-        done(null, chunk)
+        done(null, JSON.stringify(chunk))
       }, function (done) {
-        this.push(']\n')
+        this.push('\n]\n')
         done()
       })
       proxy.push('[\n')
