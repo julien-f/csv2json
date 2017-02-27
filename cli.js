@@ -17,6 +17,9 @@ var pkg = require('./package.json')
 var usage = [
   'Usage: ' + pkg.name + ' [OPTIONS] [<input file> [<output file>]]',
   '',
+  '  -d, --dynamic-typing',
+  '    Convert booleans and numeric to their type instead of strings.',
+  '',
   '  -s <separator>, --separator=<separator>',
   '    Field separator to use (default to comma “,”).',
   '',
@@ -38,11 +41,12 @@ function main (args) {
   var _ref
 
   args = minimist(args, {
-    boolean: ['help', 'tsv'],
+    boolean: ['dynamic-typing', 'help', 'tsv'],
     string: 'separator',
 
     alias: {
       help: 'h',
+      d: 'dynamic-typing',
       separator: 's',
       tsv: 't'
     }
@@ -63,6 +67,7 @@ function main (args) {
   return eventToPromise(pump([
     input,
     csv2json({
+      dynamicTyping: args['dynamic-typing'],
       separator: args.tsv ? '\t' : args.separator
     }),
     output

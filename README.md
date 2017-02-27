@@ -25,6 +25,9 @@ npm install --save csv2json
 ```
 Usage: csv2json [OPTIONS] [<input file> [<output file>]]
 
+  -d, --dynamic-typing
+    Convert booleans and numeric to their type instead of strings.
+
   -s <separator>, --separator=<separator>
     Field separator to use (default to comma “,”).
 
