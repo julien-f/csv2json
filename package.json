@@ -41,7 +41,7 @@
   "devDependencies": {
     "dependency-check": "^2.8.0",
     "jest": "^19.0.2",
-    "standard": "^8.6.0"
+    "standard": "^9.0.0"
   },
   "scripts": {
     "commitmsg": "yarn test",
