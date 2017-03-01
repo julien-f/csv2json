@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "csv-parser": "^1.11.0",
-    "event-to-promise": "^0.7.0",
+    "event-to-promise": "^0.8.0",
     "exec-promise": "^0.6.1",
     "husky": "^0.13.1",
     "minimist": "^1.2.0",
