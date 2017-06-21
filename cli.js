@@ -4,6 +4,7 @@
 
 var createReadStream = require('fs').createReadStream
 var createWriteStream = require('fs').createWriteStream
+var PassThrough = require('stream').PassThrough
 
 var eventToPromise = require('event-to-promise')
 var minimist = require('minimist')
@@ -11,6 +12,25 @@ var pump = require('pump')
 
 var csv2json = require('./')
 var pkg = require('./package.json')
+
+// ===================================================================
+
+function createInputStream (path) {
+  return path === undefined || path === '-'
+    ? process.stdin
+    : createReadStream(path)
+}
+
+function createOutputStream (path) {
+  if (path !== undefined && path !== '-') {
+    return createWriteStream(path)
+  }
+
+  // introduce a through stream because stdout is not a normal stream!
+  var stream = new PassThrough()
+  stream.pipe(process.stdout)
+  return stream
+}
 
 // ===================================================================
 
@@ -38,8 +58,6 @@ var usage = [
 ]
 
 function main (args) {
-  var _ref
-
   args = minimist(args, {
     boolean: ['dynamic-typing', 'help', 'tsv'],
     string: 'separator',
@@ -56,21 +74,13 @@ function main (args) {
     return usage
   }
 
-  var input = (_ref = args._[0]) && (_ref !== '-')
-    ? createReadStream(_ref)
-    : process.stdin
-
-  var output = (_ref = args._[1]) && (_ref !== '-')
-    ? createWriteStream(_ref)
-    : process.stdout
-
   return eventToPromise(pump([
-    input,
+    createInputStream(args._[0]),
     csv2json({
       dynamicTyping: args['dynamic-typing'],
       separator: args.tsv ? '\t' : args.separator
     }),
-    output
+    createOutputStream(args._[0])
   ]), 'finish')
 }
 exports = module.exports = main
