@@ -32,8 +32,8 @@ Usage: csv2json [OPTIONS] [<input file> [<output file>]]
     Field separator to use (default to comma “,”).
 
   -t, --tsv
-    Use tab as separator, overrides separator flag. 
-    
+    Use tab as separator, overrides separator flag.
+
   <input file>
     CSV file to read data from.
     If unspecified or a dash (“-”), use the standard input.
