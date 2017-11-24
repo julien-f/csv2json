@@ -55,7 +55,7 @@ var usage = [
   '    If unspecified or a dash (“-”), use the standard output.',
   '',
   pkg.name + ' v' + pkg.version
-]
+].join('\n')
 
 function main (args) {
   args = minimist(args, {
