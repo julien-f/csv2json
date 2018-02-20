@@ -80,7 +80,7 @@ function main (args) {
       dynamicTyping: args['dynamic-typing'],
       separator: args.tsv ? '\t' : args.separator
     }),
-    createOutputStream(args._[0])
+    createOutputStream(args._[1])
   ]), 'finish')
 }
 exports = module.exports = main
