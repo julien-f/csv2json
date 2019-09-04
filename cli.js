@@ -6,7 +6,7 @@ var createReadStream = require('fs').createReadStream
 var createWriteStream = require('fs').createWriteStream
 var PassThrough = require('stream').PassThrough
 
-var eventToPromise = require('event-to-promise')
+var eventToPromise = require('promise-toolbox/fromEvent')
 var minimist = require('minimist')
 var pump = require('pump')
 
