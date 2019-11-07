@@ -31,7 +31,7 @@
     "csv-parser": "^2.3.0",
     "exec-promise": "^0.7.0",
     "minimist": "^1.2.0",
-    "promise-toolbox": "^0.13.0",
+    "promise-toolbox": "^0.14.0",
     "pump": "^3.0.0",
     "pumpify": "^2.0.0",
     "strip-bom-stream": "^4.0.0",
