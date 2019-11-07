@@ -9,7 +9,7 @@ var stripBomStream = require('strip-bom-stream')
 
 // ===================================================================
 
-function noop () {}
+var noop = Function.prototype
 
 var hasOwn = Object.prototype.hasOwnProperty
 function parseDynamic (data) {
@@ -31,6 +31,14 @@ function parseDynamic (data) {
   }
 }
 
+function removeUndefinedProps (obj) {
+  Object.keys(obj).forEach(function (key) {
+    if (obj[key] === undefined) {
+      delete obj[key]
+    }
+  })
+}
+
 function csv2json (opts) {
   opts || (opts = {})
 
@@ -40,9 +48,9 @@ function csv2json (opts) {
 
   return pumpify([
     stripBomStream(),
-    parseCsv({
+    parseCsv(removeUndefinedProps({
       separator: opts.separator
-    }),
+    })),
     (function () {
       var notFirst = false
       var proxy = through2.obj(function (chunk, _, done) {
