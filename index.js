@@ -37,6 +37,7 @@ function removeUndefinedProps (obj) {
       delete obj[key]
     }
   })
+  return obj
 }
 
 function csv2json (opts) {
