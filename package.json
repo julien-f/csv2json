@@ -1,6 +1,6 @@
 {
   "name": "csv2json",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "ISC",
   "description": "Stream and CLI to convert CSV to JSON",
   "keywords": [
