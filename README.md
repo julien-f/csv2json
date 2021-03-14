@@ -59,6 +59,21 @@ fs.createReadStream('data.csv')
   .pipe(fs.createWriteStream('data.json'));
 ```
 
+or from a string like
+
+```javascript
+var csv2json = require('csv2json');
+const { Readable } = require("stream")
+const readable = Readable.from(['csv content'])
+let csvText = ''
+readable.pipe(csv2json()).on('data', (chunk) => {
+	csvText += chunk.toString()
+})
+.on('end', () => {
+	let objects = JSON.parse(csvText)
+})
+```
+
 ## Contributions
 
 Contributions are *very* welcomed, either on the documentation or on
