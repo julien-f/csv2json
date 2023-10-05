@@ -2,6 +2,8 @@
 
 [![Package Version](https://badgen.net/npm/v/csv2json)](https://npmjs.org/package/csv2json) [![Build Status](https://travis-ci.org/julien-f/csv2json.png?branch=master)](https://travis-ci.org/julien-f/csv2json) [![PackagePhobia](https://badgen.net/packagephobia/install/csv2json)](https://packagephobia.now.sh/result?p=csv2json) [![Latest Commit](https://badgen.net/github/last-commit/julien-f/csv2json)](https://github.com/julien-f/csv2json/commits/master)
 
+**Looking for maintainers, drop a message [in this issue](https://github.com/julien-f/csv2json/issues/36).**
+
 > Stream and CLI to convert CSV to JSON.
 
 ## Install
