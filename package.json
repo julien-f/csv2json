@@ -10,6 +10,7 @@
     "csvtojson",
     "stream"
   ],
+  "type": "commonjs",
   "homepage": "https://github.com/julien-f/csv2json",
   "bugs": "https://github.com/julien-f/csv2json/issues",
   "repository": {
@@ -31,6 +32,7 @@
     "csv-parser": "^2.3.0",
     "exec-promise": "^0.7.0",
     "minimist": "^1.2.0",
+    "mocha": "^10.2.0",
     "promise-toolbox": "^0.15.0",
     "pump": "^3.0.0",
     "pumpify": "^2.0.0",
@@ -42,7 +44,7 @@
     "standard": "^14.1.0"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard --fix"
   },
   "jest": {
     "testRegex": "\\.spec\\.js$"

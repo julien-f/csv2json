@@ -1,76 +1,57 @@
 'use strict'
 
-// ===================================================================
-
+var fs = require('fs')
 var parseCsv = require('csv-parser')
-var pumpify = require('pumpify')
-var through2 = require('through2')
-var stripBomStream = require('strip-bom-stream')
 
-// ===================================================================
-
-var noop = Function.prototype
-
-var hasOwn = Object.prototype.hasOwnProperty
+/**
+ * Parses dynamic values in an object.
+ * @param {Object} data - The object containing dynamic values.
+ */
 function parseDynamic (data) {
-  var name, value
-  for (name in data) {
-    if (hasOwn.call(data, name)) {
-      value = data[name].toLowerCase()
+  for (var name in data) {
+    if (Object.prototype.hasOwnProperty.call(data, name)) {
+      var value = data[name].toLowerCase()
       if (value === 'true') {
         data[name] = true
       } else if (value === 'false') {
         data[name] = false
       } else if (value !== '') {
-        value = +value
-        if (!isNaN(value)) {
-          data[name] = value
+        var numericValue = +value
+        if (!isNaN(numericValue)) {
+          data[name] = numericValue
         }
       }
     }
   }
 }
 
-function removeUndefinedProps (obj) {
-  Object.keys(obj).forEach(function (key) {
-    if (obj[key] === undefined) {
-      delete obj[key]
-    }
-  })
-  return obj
+/**
+ * Converts CSV to JSON.
+ * @param {string} filePath - The path to the CSV file.
+ * @param {Object} options - The options for CSV to JSON conversion.
+ * @param {boolean} options.dynamicTyping - Whether to parse dynamic values.
+ * @param {string} options.separator - The separator used in the CSV.
+ * @param {function} callback - Callback function to handle the JSON data.
+ */
+function csv2json (filePath, options, callback) {
+  options = options || {}
+  var process = options.dynamicTyping ? parseDynamic : function () { }
+
+  var jsonArray = []
+  fs.createReadStream(filePath)
+    .pipe(parseCsv({ separator: options.separator }))
+    .on('data', function (data) {
+      process(data)
+      jsonArray.push(data)
+    })
+    .on('end', function () {
+      callback(null, jsonArray)
+    })
+    .on('error', function (error) {
+      callback(error)
+    })
 }
 
-function csv2json (opts) {
-  opts || (opts = {})
+// Example usage:
 
-  var process = opts.dynamicTyping
-    ? parseDynamic
-    : noop
-
-  return pumpify([
-    stripBomStream(),
-    parseCsv(removeUndefinedProps({
-      separator: opts.separator
-    })),
-    (function () {
-      var notFirst = false
-      var proxy = through2.obj(function (chunk, _, done) {
-        if (notFirst) {
-          this.push(',\n')
-        }
-        notFirst = true
-
-        process(chunk)
-
-        done(null, JSON.stringify(chunk))
-      }, function (done) {
-        this.push('\n]\n')
-        done()
-      })
-      proxy.push('[\n')
-
-      return proxy
-    })()
-  ])
-}
 exports = module.exports = csv2json
