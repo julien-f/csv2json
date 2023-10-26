@@ -8,9 +8,7 @@ var pkg = require('./package.json')
 
 // ===================================================================
 
-
-
-function createOutputStream(path) {
+function createOutputStream (path) {
   if (path !== undefined && path !== '-') {
     return require('fs').createWriteStream(path)
   }
@@ -44,7 +42,7 @@ var usage = [
   pkg.name + ' v' + pkg.version
 ].join('\n')
 
-function main(args) {
+function main (args) {
   args = minimist(args, {
     boolean: ['dynamic-typing', 'help', 'tsv'],
     string: 'separator',
