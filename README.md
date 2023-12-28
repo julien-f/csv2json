@@ -24,58 +24,36 @@ npm install --save csv2json
 
 ## Usage
 
-### CLI
-
-```
-Usage: csv2json [OPTIONS] [<input file> [<output file>]]
-
-  -d, --dynamic-typing
-    Convert booleans and numeric to their type instead of strings.
-
-  -s <separator>, --separator=<separator>
-    Field separator to use (default to comma “,”).
-
-  -t, --tsv
-    Use tab as separator, overrides separator flag.
-
-  <input file>
-    CSV file to read data from.
-    If unspecified or a dash (“-”), use the standard input.
-
-  <output file>
-    JSON file to write data to.
-    If unspecified or a dash (“-”), use the standard output.
-```
-
-### Stream
+### Json Object
 
 ```javascript
-var csv2json = require('csv2json');
-var fs = require('fs');
-
-fs.createReadStream('data.csv')
-  .pipe(csv2json({
-    // Defaults to comma.
-    separator: ';'
-  }))
-  .pipe(fs.createWriteStream('data.json'));
+var csv2json = require("csvtojson-parser");
+var fs = require("fs");
+csv2json("example.csv", options, function (err, jsonData) {
+    if (err) {
+        console.error("Error:", err);
+    } else {
+        result = jsonData;
+        console.log(JSON.stringify(jsonData, null, 2));
+    }
+});
 ```
 
 ## Contributions
 
-Contributions are *very* welcomed, either on the documentation or on
+Contributions are _very_ welcomed, either on the documentation or on
 the code.
 
 You may:
 
-- report any [issue](https://github.com/julien-f/csv2json/issues)
-  you've encountered;
-- fork and create a pull request.
+-   report any [issue](https://github.com/kunalburangi/csv2json/issues)
+    you've encountered;
+-   fork and create a pull request.
 
 ## Note
 
-Thanks to @twilson63 for letting me use the *csv2json* name on [npm](https://www.npmjs.org/).
+Thanks to @twilson63 for letting me use the _csv2json_ name on [npm](https://www.npmjs.org/).
 
 ## License
 
-ISC © [Julien Fontanet](http://julien.isonoe.net)
+[Kunal Burangi]
