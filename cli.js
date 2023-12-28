@@ -2,34 +2,19 @@
 
 'use strict'
 
-var createReadStream = require('fs').createReadStream
-var createWriteStream = require('fs').createWriteStream
-var PassThrough = require('stream').PassThrough
-
-var eventToPromise = require('promise-toolbox/fromEvent')
 var minimist = require('minimist')
-var pump = require('pump')
-
 var csv2json = require('./')
 var pkg = require('./package.json')
 
 // ===================================================================
 
-function createInputStream (path) {
-  return path === undefined || path === '-'
-    ? process.stdin
-    : createReadStream(path)
-}
-
 function createOutputStream (path) {
   if (path !== undefined && path !== '-') {
-    return createWriteStream(path)
+    return require('fs').createWriteStream(path)
   }
 
-  // introduce a through stream because stdout is not a normal stream!
-  var stream = new PassThrough()
-  stream.pipe(process.stdout)
-  return stream
+  // If path is unspecified or a dash (“-”), use process.stdout
+  return process.stdout
 }
 
 // ===================================================================
@@ -71,22 +56,35 @@ function main (args) {
   })
 
   if (args.help) {
-    return usage
+    console.log(usage)
+    return
   }
 
-  return eventToPromise(pump([
-    createInputStream(args._[0]),
-    csv2json({
-      dynamicTyping: args['dynamic-typing'],
-      separator: args.tsv ? '\t' : args.separator
-    }),
-    createOutputStream(args._[1])
-  ]), 'finish')
-}
-exports = module.exports = main
+  const inputFilePath = args._[0]
+  const outputFilePath = args._[1]
 
-// ===================================================================
+  if (!inputFilePath) {
+    console.error('Please provide an input file path.')
+    return
+  }
+
+  const outputStream = createOutputStream(outputFilePath)
+
+  csv2json(inputFilePath, { // Pass the file path
+    dynamicTyping: args['dynamic-typing'],
+    separator: args.tsv ? '\t' : args.separator
+  }, function (err, jsonArray) {
+    if (err) {
+      console.error('An error occurred:', err)
+      process.exit(1)
+    } else {
+      // Convert the jsonArray to JSON string and write to the output stream
+      outputStream.write(JSON.stringify(jsonArray, null, 2))
+      outputStream.end()
+    }
+  })
+}
 
 if (!module.parent) {
-  require('exec-promise')(exports)
+  main(process.argv.slice(2))
 }
