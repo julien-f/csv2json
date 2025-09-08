@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "husky": "^4.2.3",
-    "standard": "^14.1.0"
+    "standard": "^17.1.2"
   },
   "scripts": {
     "test": "standard"
